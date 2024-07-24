@@ -24,7 +24,7 @@ router.get('/login', function(req, res, next) {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: 'http://localhost:3001',
+        redirect_uri: 'https://frontend-pipedrive-test.vercel.app',
       })
     }).then(reponse=>reponse.json()).then(data=>{
       console.log(data)
