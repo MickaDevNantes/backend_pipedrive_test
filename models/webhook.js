@@ -7,6 +7,6 @@ company_id: String,
 user_id: String,
 });
 
-const Webhook = mongoose.model('webhook', webhookSchema);
+const Webhook = mongoose.model('webhooks', webhookSchema);
 
 module.exports = Webhook;
