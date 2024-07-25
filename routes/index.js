@@ -7,15 +7,21 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/reception', function(req, res, next) {
+router.get('/reception', function(req, res, next) {
   let newWebhook = new Webhook({action: req.body.meta.action, object: req.body.meta.object, company_id: req.body.meta.company_id, user_id: req.body.meta.user_id})
-  newWebhook.save()
-  res.render({result: req.body});
+  newWebhook.save().then(data=>{
+    if(data){
+      res.status(200).send({result: true, message:'Enregitré !'});
+    }else {
+      res.status(400).send({result: true, error:"Problème d'enregistrement"});
+    }
+  })
+  
 });
 
 router.get('/getWebhook', function(req, res, next) {
   Webhook.find().then(data=>{
-    res.render({result: data});
+    res.json({result: data});
   })
 });
 
