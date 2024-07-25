@@ -1,14 +1,23 @@
 var express = require('express');
 var router = express.Router();
+const Webhook = require('../models/webhook');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// router.get('/reception', function(req, res, next) {
-//   res.render({result: req.body});
-// });
+router.post('/reception', function(req, res, next) {
+  let newWebhook = new Webhook({action: req.body.meta.action, object: req.body.meta.object, company_id: req.body.meta.company_id, user_id: req.body.meta.user_id})
+  newWebhook.save()
+  res.render({result: req.body});
+});
+
+router.get('/getWebhook', function(req, res, next) {
+  Webhook.find().then(data=>{
+    res.render({result: data});
+  })
+});
 
 router.get('/login', function(req, res, next) {
   const code = req.query.code;
