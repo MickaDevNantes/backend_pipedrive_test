@@ -11,9 +11,9 @@ router.post('/reception', function(req, res, next) {
   let newWebhook = new Webhook({action: req.body.meta.action, object: req.body.meta.object, company_id: req.body.meta.company_id, user_id: req.body.meta.user_id})
   newWebhook.save().then(data=>{
     if(data){
-      res.status(200).send({result: true, message:'Enregitré !'});
+      res.status(200).json({result: true, message:'Enregitré !'});
     }else {
-      res.status(400).send({result: true, error:"Problème d'enregistrement"});
+      res.status(400).json({result: true, error:"Problème d'enregistrement"});
     }
   })
   
